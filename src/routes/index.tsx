@@ -13,6 +13,7 @@ function Index() {
     <div className="  mt-30 justify-center items-center  ">
       <Navbar/>
        <EventOption/>
+       
       <EventCard/> 
        <AnuncioEventos/>
        <AnuncioEventos/>
