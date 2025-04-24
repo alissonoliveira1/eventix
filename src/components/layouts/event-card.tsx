@@ -7,7 +7,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css'
 function EventCard(){
 return(
     
-    <main className="bg-white-500 justify-items-center">
+    <main className="justify-items-center">
     <section className="container py-8 md:py-12">
       <div className="rounded-lg border bg-white text-gray-900 ">
         <div className="flex flex-col md:flex-row">
@@ -56,37 +56,7 @@ return(
       </div>
     </section>
 
-    <section className="container py-8 md:py-12">
-      <h2 className="text-2xl font-bold mb-6">Próximos Eventos</h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-          <div key={item} className="rounded-lg border bg-white text-gray-900 shadow-sm overflow-hidden">
-            <div className="relative h-32 w-full">
-              <LazyLoadImage
-                src={`/src/assets/banner.jpg`}
-                alt={`Evento ${item}`}
-                fill
-                className="object-cover w-[310px] h-[128px]"
-              />
-            </div>
-            <div className="p-3">
-              <h1 className="font-semibold text-xl mb-1 text-gray-600">Nome do Evento {item}</h1>
-              <div className="flex items-center gap-1 mb-1">
-                <CalendarDays className="h-3 w-3 text-amber-300" />
-                <span className="text-xs text-amber-300">20 de Junho, 2025</span>
-              </div>
-              <div className="flex items-center gap-1 mb-2">
-                <MapPin className="h-3 w-3 text-rose-500" />
-                <span className="text-xs text-gray-600">Local do Evento</span>
-              </div>
-              <button className="inline-flex w-full items-center justify-center rounded-md border border-gray-300 bg-transparent px-3 py-1 text-xs font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:ring-offset-2">
-                Ver Detalhes
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
+   
   </main>
 )
 }

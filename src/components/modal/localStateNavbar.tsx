@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/Button";
 import { MapPin } from "lucide-react";
+
 import { ChevronDown } from "lucide-react";
 import axios from "axios";
 
@@ -21,7 +22,7 @@ export function StateNavbar() {
 
     useEffect(() => {
         if (query.length > 1) {
-          axios.get(`http://localhost:3000/search?query=${query}`)
+          axios.get(`http://localhost:3000/cidades?query=${query}`)
             .then(res => setResultados(res.data))
             .catch(err => console.error('Erro ao buscar:', err));
         } else {
@@ -33,14 +34,17 @@ export function StateNavbar() {
     return (
         <Dialog open={modal} onOpenChange={setModal}>
             <DialogTrigger asChild>
-                <Button variant="outline" size="lg">
+                <Button variant="outline" className="cursor-pointer" size="lg">
                     <MapPin className="size-4" />
                     {valor}
                     <ChevronDown className="size-4" />
                 </Button>
             </DialogTrigger>
-            <DialogContent className="bg-white w-[400px] h-[500px] rounded-lg shadow-md p-4">
-                <h1 className="text-lg font-bold">State Navbar</h1>
+            <DialogContent  className="bg-white p-9 ">
+                <DialogHeader>
+                    <DialogTitle className="text-center">Selecione um local</DialogTitle>
+                    <DialogDescription className="text-center ">digite uma localização</DialogDescription>
+                </DialogHeader>
                 <Input
                     type="text"
                     placeholder="Search..."
