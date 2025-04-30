@@ -30,11 +30,11 @@ export function AnuncioEventos() {
         {/* Wrapper do scroll horizontal */}
         <div className="relative" >
           {/* Lista horizontal com gap entre os itens */}
-          <div ref={sliderRef} className=" keen-slider  px-1 pb-1  md:px-0">
+          <div ref={sliderRef} className=" keen-slider   px-1 pb-1  md:px-0">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
              <div
              key={item}
-             className="keen-slider__slide min-w-2xs rounded-lg border bg-white text-gray-300 shadow-sm overflow-hidden"
+             className="keen-slider__slide cursor-pointer hover:shadow-2xl transition: ease-in-out min-w-2xs rounded-lg border bg-white text-gray-300 shadow-sm overflow-hidden"
            >
                 <div className="relative h-32 w-full">
                   <LazyLoadImage
@@ -64,7 +64,7 @@ export function AnuncioEventos() {
             ))}
           </div>
           {loaded && instanceRef.current && instanceRef.current.track && (
-  <>
+  <div className="flex mt-1 justify-end gap-1">
     <Arrow
       left
       
@@ -86,7 +86,7 @@ export function AnuncioEventos() {
         (instanceRef.current?.track?.details?.slides?.length ?? 0) - 1
       }
     />
-  </>
+  </div>
 )}
         </div>
       </section>
@@ -101,11 +101,13 @@ function Arrow(props: {
   left?: boolean;
   onClick: (e: any) => void;
 }) {
-  const disabled = props.disabled ? " fill-cyan-100 " : "";
+  const disabled = props.disabled ? " fill-gray-400 " : "";
   return (
-    <svg
-      onClick={props.onClick}
-      className={` w-[30px]  h-[30px] cursor-pointer  absolute top-[50%] translateY-[50%]  ${props.left ? " left-[5px]" : "left-auto right-[5px]"
+  
+     <div onClick={props.onClick} className="border border-gray-200 cursor-pointer   p-1 justify-center items-center flex  shadow-sm">
+      <svg
+      
+      className={` w-[20px]  h-[20px]   top-[50%] translateY-[50%]  ${props.left ? " left-[5px]" : "left-auto right-[5px]"
         } ${disabled} `}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
@@ -117,5 +119,7 @@ function Arrow(props: {
         <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
       )}
     </svg>
+     </div>
+  
   );
 }

@@ -9,7 +9,7 @@ return(
     
     <main className="justify-items-center">
     <section className="container py-8 md:py-12">
-      <div className="rounded-lg border bg-white text-gray-900 ">
+      <div className="rounded-lg border border-gray-300 shadow-sm bg-white text-gray-900 ">
         <div className="flex flex-col md:flex-row">
           <div className="relative w-full md:w-1/2 h-[300px] md:h-auto">
             <LazyLoadImage
