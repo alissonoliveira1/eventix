@@ -1,22 +1,22 @@
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+/*import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import { Button } from "../ui/Button";
 import { useAuth } from "@/components/context/useAuth";
 import * as Popover from '@radix-ui/react-popover';
 import { Avatar } from "radix-ui";
-function CreateUserModal() {
+function LoginUserModal() {
 
   const { login, user, logout } = useAuth()
 
   const [modal, setModal] = useState(false);
   console.log(user)
-
   if (!user) {
     return (
       <Dialog open={modal} onOpenChange={setModal}>
 
         <DialogTrigger asChild>
-          <Button className='bg-indigo-500 text-white shadow-md'>Sign up</Button>
+           <Button className='bg-white text-gray-700 shadow-md'>Sign in</Button>
+        
         </DialogTrigger>
 
         <DialogContent className=" bg-white text-gray-900 border-amber-50 shadow-lg">
@@ -80,9 +80,9 @@ function CreateUserModal() {
             <li onClick={logout}>sair da conta</li>
           </ul>
           <Popover.Close
-					className="absolute right-[5px] top-[5px] inline-flex size-[25px] cursor-default items-center justify-center rounded-full text-violet11 outline-none hover:bg-violet4 focus:shadow-[0_0_0_2px] focus:shadow-violet7"
-					aria-label="Close"
-				>
+                    className="absolute right-[5px] top-[5px] inline-flex size-[25px] cursor-default items-center justify-center rounded-full text-violet11 outline-none hover:bg-violet4 focus:shadow-[0_0_0_2px] focus:shadow-violet7"
+                    aria-label="Close"
+                >
             x
           </Popover.Close>
           <Popover.Arrow className="fill-red-700" />
@@ -91,4 +91,5 @@ function CreateUserModal() {
     </Popover.Root>
   );
 }
-export default CreateUserModal;
+export default LoginUserModal;
+*/

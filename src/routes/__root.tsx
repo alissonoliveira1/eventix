@@ -5,6 +5,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
     <ThemeProvider defaultTheme="dark" >
+      
          <TanStackRouterDevtools />
          <Outlet />
     </ThemeProvider>

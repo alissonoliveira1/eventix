@@ -1,74 +1,72 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { Toast } from "radix-ui";
+
 import { toast } from "sonner";
+import { useUserGoogle } from "@/api/queries/getUserGoogle";
+import { UserGoogleSchema, type GoogleUser } from "@/schema/UserGoogleSchema";
+import axios from "axios";
+import { LoadingSpinner } from "../ui/LoadingSpinner";
 
-
-interface User {
-    name: string;
-    email: string;
-    picture: string;
-}
-
-interface AuthContextType{
-    user: User | null;
-    loading: boolean;
+type AuthContextType = {
+    user: GoogleUser | null;
+    isLoading: boolean;
+    error: any;
     login: () => void;
     logout: () => void;
-
-}
+  };
+  
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({children}: {children: React.ReactNode }) =>{
-    const [user, setuser] = useState<User | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [open, setOpen] = React.useState(false);
-    const eventDateRef = React.useRef(new Date());
-	const timerRef = React.useRef(0);
+   
+    const { data, isLoading, error, refetch  } = useUserGoogle();
+    const [user, setUser] = useState<GoogleUser | null>(null);
     const login = () => {
      window.location.href = "http://localhost:3000/auth/google"
     }
 
-    const logout = async () => {
-     await axios.get('http://localhost:3000/logout', {withCredentials:true})
-     setuser(null)
-    }
-
-    
-
-    const fetchUser = async () => {
-        try {
-            const res = await axios.get('http://localhost:3000/profile', {withCredentials:true})
-            if(res.data.user){
-                setuser(res.data.user)
-                console.log(res.data.user)
-                toast.success("Usuário logado com sucesso")
-                 
-            }else{
-                console.log("Dados do Usuário não encontrado")
-            }
-
-        } catch (error) {
-            console.error("Erro ao buscar usuário:", error)
-            setuser(null)
+    useEffect(() => {
+        if (data) {
+          const parsed = UserGoogleSchema.safeParse(data);
+          if (parsed.success) {
+            setUser(parsed.data);
+          } else {
+            setUser(null);
+          }
         }
-        finally {
-            setLoading(false)
-        }
-    }
+      }, [data]);
 
     useEffect(() => {
-        fetchUser();
-      }, []);
+        if (user == null){
+          console.log("Usuário não encontrado")
+        }else if (error) {
+          toast.error('Erro ao carregar os dados do usuário. Tente novamente!');
+        }
+      }, [user, error]);  
+
+      const logout = async () => {
+        try {
+            await axios.get('http://localhost:3000/logout', { withCredentials: true });
+            setUser(null);
+            refetch();
+            toast.success('Você saiu com sucesso!');
+        } catch (err) {
+            toast.error('Erro ao tentar fazer logout.');
+        }
+    };
+
+    useEffect(() => {
+        if (user) {
+            toast.success('Login realizado com sucesso!');
+        }
+    }, [user]);
+
+
 
    return(
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
-    {children}
+    <AuthContext.Provider value={{ user, isLoading, error, login, logout }}>
+     { children}
     </AuthContext.Provider>
    )
-
-  
-
 }
 
 export const useAuth = () => {
